@@ -54,10 +54,10 @@ function OnTriggerEnter (col : Collider) {
 	
 	// If there is an animation attached.
 	// Play it.
-	if (animation && animation.clip)
+	if (GetComponent.<Animation>() && GetComponent.<Animation>().clip)
 	{
-		animation.Play();
-		Destroy(gameObject, animation.clip.length);
+		GetComponent.<Animation>().Play();
+		Destroy(gameObject, GetComponent.<Animation>().clip.length);
 	}
 	else
 	{
@@ -68,9 +68,9 @@ function OnTriggerEnter (col : Collider) {
 // Auto setup the pickup
 function Reset ()
 {
-	if (collider == null)	
+	if (GetComponent.<Collider>() == null)	
 		gameObject.AddComponent(BoxCollider);
-	collider.isTrigger = true;
+	GetComponent.<Collider>().isTrigger = true;
 }
 
 @script RequireComponent(SphereCollider)

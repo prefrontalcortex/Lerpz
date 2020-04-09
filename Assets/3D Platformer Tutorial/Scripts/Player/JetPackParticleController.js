@@ -8,8 +8,8 @@ function Start () {
 	// The script ensures an AudioSource component is always attached.
 	
 	// First, we make sure the AudioSource component is initialized correctly:
-	audio.loop = false;
-	audio.Stop();
+	GetComponent.<AudioSource>().loop = false;
+	GetComponent.<AudioSource>().Stop();
 	
 	
 	// Init the particles to not emit and switch off the spotlights:
@@ -30,14 +30,14 @@ function Start () {
 		// handle thruster sound effect
 		if (isFlying)
 		{
-			if (!audio.isPlaying)
+			if (!GetComponent.<AudioSource>().isPlaying)
 			{
-				audio.Play();
+				GetComponent.<AudioSource>().Play();
 			}
 		}
 		else
 		{
-			audio.Stop();
+			GetComponent.<AudioSource>().Stop();
 		}
 		
 		

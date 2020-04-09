@@ -1,6 +1,6 @@
 
 function Start () 
 {
-	yield WaitForSeconds(particleEmitter.minEnergy / 2);
-	particleEmitter.emit = false;
+	yield WaitForSeconds(GetComponent.<ParticleEmitter>().minEnergy / 2);
+	GetComponent.<ParticleEmitter>().emit = false;
 }

@@ -16,8 +16,8 @@ private var dead = false;
 function ApplyDamage (damage : int)
 {
 	// we've been hit, so play the 'struck' sound. This should be a metallic 'clang'.
-	if (audio && struckSound)
-		audio.PlayOneShot(struckSound);
+	if (GetComponent.<AudioSource>() && struckSound)
+		GetComponent.<AudioSource>().PlayOneShot(struckSound);
 
 	if (hitPoints <= 0)
 		return;
@@ -44,7 +44,7 @@ function Die ()
 	effect.parent = deadModel;
 	
 	// fall away from the player, and spin like a top
-	var deadModelRigidbody = deadModel.rigidbody;
+	var deadModelRigidbody = deadModel.GetComponent.<Rigidbody>();
 	var relativePlayerPosition = transform.InverseTransformPoint(Camera.main.transform.position);
 	deadModelRigidbody.AddTorque(Vector3.up * 7);
 	if (relativePlayerPosition.z > 0)

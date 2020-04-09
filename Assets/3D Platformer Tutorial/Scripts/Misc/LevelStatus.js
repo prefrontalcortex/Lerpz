@@ -52,7 +52,7 @@ function LevelCompleted()
 {
   AudioSource.PlayClipAtPoint(levelCompleteSound, levelGoal.transform.position, 
  2.0); }
- levelGoal.animation.Play();
- yield WaitForSeconds (levelGoal.animation.clip.length);
+ levelGoal.GetComponent.<Animation>().Play();
+ yield WaitForSeconds (levelGoal.GetComponent.<Animation>().clip.length);
  Application.LoadLevel("GameOver"); //...just show the Game Over sequence.
 }

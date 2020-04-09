@@ -26,6 +26,7 @@ private var isAttacking = false;
 private var lastPunchTime = 0.0;
 
 var target : Transform;
+var anim : Animation;
 
 // Cache a reference to the controller
 private var characterController : CharacterController;
@@ -46,17 +47,19 @@ function Start ()
 	if (!target)
 		target = GameObject.FindWithTag("Player").transform;
 	
-	animation.wrapMode = WrapMode.Loop;
+	anim = GetComponent.<Animation>();
+
+	anim.wrapMode = WrapMode.Loop;
 
 	// Setup animations
-	animation.Play("idle");
-	animation["threaten"].wrapMode = WrapMode.Once;
-	animation["turnjump"].wrapMode = WrapMode.Once;
-	animation["gothit"].wrapMode = WrapMode.Once;
-	animation["gothit"].layer = 1;
+	anim.Play("idle");
+	anim["threaten"].wrapMode = WrapMode.Once;
+	anim["turnjump"].wrapMode = WrapMode.Once;
+	anim["gothit"].wrapMode = WrapMode.Once;
+	anim["gothit"].layer = 1;
 	
 	// initialize audio clip. Make sure it's set to the "idle" sound.
-	audio.clip = idleSound;
+	GetComponent.<AudioSource>().clip = idleSound;
 	
 	yield WaitForSeconds(Random.value);
 	
@@ -78,12 +81,12 @@ function Idle ()
 	// if idling sound isn't already set up, set it and start it playing.
 	if (idleSound)
 	{
-		if (audio.clip != idleSound)
+		if (GetComponent.<AudioSource>().clip != idleSound)
 		{
-			audio.Stop();
-			audio.clip = idleSound;
-			audio.loop = true;
-			audio.Play();	// play the idle sound.
+			GetComponent.<AudioSource>().Stop();
+			GetComponent.<AudioSource>().clip = idleSound;
+			GetComponent.<AudioSource>().loop = true;
+			GetComponent.<AudioSource>().Play();	// play the idle sound.
 		}
 	}
 	
@@ -128,19 +131,19 @@ function Attack ()
 	
 	if (attackSound)
 	{
-		if (audio.clip != attackSound)
+		if (GetComponent.<AudioSource>().clip != attackSound)
 		{
-			audio.Stop();	// stop the idling audio so we can switch out the audio clip.
-			audio.clip = attackSound;
-			audio.loop = true;	// change the clip, then play
-			audio.Play();
+			GetComponent.<AudioSource>().Stop();	// stop the idling audio so we can switch out the audio clip.
+			GetComponent.<AudioSource>().clip = attackSound;
+			GetComponent.<AudioSource>().loop = true;	// change the clip, then play
+			GetComponent.<AudioSource>().Play();
 		}
 	}
 	
 	// Already queue up the attack run animation but set it's blend wieght to 0
 	// it gets blended in later
 	// it is looping so it will keep playing until we stop it.
-	animation.Play("attackrun");
+	anim.Play("attackrun");
 	
 	// First we wait for a bit so the player can prepare while we turn around
 	// As we near an angle of 0, we will begin to move
@@ -156,7 +159,7 @@ function Attack ()
 		move = Mathf.Clamp01((90 - angle) / 90);
 		
 		// depending on the angle, start moving
-		animation["attackrun"].weight = animation["attackrun"].speed = move;
+		anim["attackrun"].weight = anim["attackrun"].speed = move;
 		direction = transform.TransformDirection(Vector3.forward * attackSpeed * move);
 		characterController.SimpleMove(direction);
 		
@@ -215,12 +218,12 @@ function Attack ()
 	isAttacking = false;
 	
 	// Now we can go back to playing the idle animation
-	animation.CrossFade("idle");
+	anim.CrossFade("idle");
 }
 
 function ApplyDamage ()
 {
-	animation.CrossFade("gothit");
+	anim.CrossFade("gothit");
 }
 
 function OnDrawGizmosSelected ()

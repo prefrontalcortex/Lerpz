@@ -58,9 +58,9 @@ function Start()
 	// set up the looping "RespawnActive" sound, but leave it switched off for now:
 	if (SFXRespawnActiveLoop)
 	{
-		audio.clip = SFXRespawnActiveLoop;
-		audio.loop = true;
-		audio.playOnAwake = false;
+		GetComponent.<AudioSource>().clip = SFXRespawnActiveLoop;
+		GetComponent.<AudioSource>().loop = true;
+		GetComponent.<AudioSource>().playOnAwake = false;
 	}
 	
 	// Assign the respawn point to be this one - Since the player is positioned on top of a respawn point, it will come in and overwrite it.
@@ -94,7 +94,7 @@ function SetActive ()
 	emitterInactive.emit = false;
 	respawnLight.intensity = 1.5;	
 
-	audio.Play();		// start playing the sound clip assigned in the inspector
+	GetComponent.<AudioSource>().Play();		// start playing the sound clip assigned in the inspector
 }
 
 function SetInactive () 
@@ -103,7 +103,7 @@ function SetInactive ()
 	emitterInactive.emit = true;
 	respawnLight.intensity = 1.5;		
 
-	audio.Stop();	// stop playing the active sound clip.			
+	GetComponent.<AudioSource>().Stop();	// stop playing the active sound clip.			
 }
 
 function FireEffect () 

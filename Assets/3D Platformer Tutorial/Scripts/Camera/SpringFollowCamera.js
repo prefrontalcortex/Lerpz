@@ -18,7 +18,7 @@ private var targetHeight = 100000.0;
 
 function Awake ()
 {
-	var characterController : CharacterController = target.collider;
+	var characterController : CharacterController = target.GetComponent.<Collider>();
 	if (characterController)
 	{
 		centerOffset = characterController.bounds.center - target.position;
@@ -156,8 +156,8 @@ function SetUpRotation (centerPos : Vector3, headPos : Vector3)
 	transform.rotation = yRotation * Quaternion.LookRotation(relativeOffset);
 
 	// Calculate the projected center position and top position in world space
-	var centerRay = camera.ViewportPointToRay(Vector3(.5, 0.5, 1));
-	var topRay = camera.ViewportPointToRay(Vector3(.5, clampHeadPositionScreenSpace, 1));
+	var centerRay = GetComponent.<Camera>().ViewportPointToRay(Vector3(.5, 0.5, 1));
+	var topRay = GetComponent.<Camera>().ViewportPointToRay(Vector3(.5, clampHeadPositionScreenSpace, 1));
 
 	var centerRayPos = centerRay.GetPoint(distance);
 	var topRayPos = topRay.GetPoint(distance);

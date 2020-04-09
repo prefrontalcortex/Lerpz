@@ -1,5 +1,5 @@
 ﻿function LateUpdate () 
 {
- if (!audio.isPlaying || Input.anyKeyDown)
+ if (!GetComponent.<AudioSource>().isPlaying || Input.anyKeyDown)
   Application.LoadLevel("StartMenu");
 }

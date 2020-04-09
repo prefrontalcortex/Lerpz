@@ -20,8 +20,7 @@ GUI.Label ( Rect( (Screen.width/2)-197, 50, 400, 100), "Lerpz Escapes",
   isLoading = true;
   Application.LoadLevel("TheGame");  // load the game level. 
 }
-var isWebPlayer = (Application.platform == RuntimePlatform.OSXWebPlayer || 
-   Application.platform == RuntimePlatform.WindowsWebPlayer);
+var isWebPlayer = false;
  if (!isWebPlayer)
 {
   if (GUI.Button( Rect( (Screen.width/2)-70, Screen.height - 80, 140, 70), "Quit"))

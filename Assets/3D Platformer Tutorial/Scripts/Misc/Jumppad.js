@@ -5,9 +5,9 @@ function OnTriggerEnter (col : Collider)
 	var controller : ThirdPersonController = col.GetComponent(ThirdPersonController);
 	if (controller != null)
 	{
-		if (audio) 
+		if (GetComponent.<AudioSource>()) 
 		{
-			audio.Play();
+			GetComponent.<AudioSource>().Play();
 		}
 
 		controller.SuperJump(jumpHeight);
@@ -19,9 +19,9 @@ function OnTriggerEnter (col : Collider)
 // Auto setup the script and associated trigger.
 function Reset ()
 {
-	if (collider == null)	
+	if (GetComponent.<Collider>() == null)	
 		gameObject.AddComponent(BoxCollider);
-	collider.isTrigger = true;
+	GetComponent.<Collider>().isTrigger = true;
 }
 
 @script RequireComponent(BoxCollider)

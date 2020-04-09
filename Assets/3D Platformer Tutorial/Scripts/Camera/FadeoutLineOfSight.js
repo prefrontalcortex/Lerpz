@@ -52,7 +52,7 @@ function LateUpdate () {
 		for (var hit : RaycastHit in hits)
 		{
 			// Make sure we have a renderer
-			var hitRenderer : Renderer = hit.collider.renderer;		
+			var hitRenderer : Renderer = hit.collider.GetComponent.<Renderer>();		
 			if (hitRenderer == null || !hitRenderer.enabled)
 				continue;
 			

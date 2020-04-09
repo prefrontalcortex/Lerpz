@@ -19,9 +19,9 @@ function OnTriggerEnter (other : Collider)
 // Auto setup the pickup
 function Reset ()
 {
-	if (collider == null)
+	if (GetComponent.<Collider>() == null)
 		gameObject.AddComponent(BoxCollider);
-	collider.isTrigger = true;
+	GetComponent.<Collider>().isTrigger = true;
 }
 
 @script AddComponentMenu("Third Person Props/Fallout Death")
