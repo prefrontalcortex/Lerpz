@@ -8,7 +8,7 @@ public partial class GameOverScript : MonoBehaviour
     {
         if (!this.GetComponent<AudioSource>().isPlaying || Input.anyKeyDown)
         {
-            Application.LoadLevel("StartMenu");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("StartMenu");
         }
     }
 

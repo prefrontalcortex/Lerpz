@@ -26,7 +26,7 @@ public partial class StartMenuGUI : MonoBehaviour
         if (GUI.Button(new Rect((Screen.width / 2) - 70, Screen.height - 160, 140, 70), "Play"))
         {
             this.isLoading = true;
-            Application.LoadLevel("TheGame"); // load the game level. 
+            UnityEngine.SceneManagement.SceneManager.LoadScene("TheGame"); // load the game level. 
         }
         bool isWebPlayer = false;
         if (!isWebPlayer)

@@ -84,7 +84,7 @@ public partial class ThirdPersonStatus : MonoBehaviour
         this.health = this.maxHealth;
         if (this.lives < 0)
         {
-            Application.LoadLevel("GameOver");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
         }
         // If we've reached here, the player still has lives remaining, so respawn.
         var respawnPosition = Respawn.currentRespawn.transform.position;

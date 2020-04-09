@@ -65,7 +65,7 @@ public partial class LevelStatus : MonoBehaviour
         }
         this.levelGoal.GetComponent<Animation>().Play();
         yield return new WaitForSeconds(this.levelGoal.GetComponent<Animation>().clip.length);
-        Application.LoadLevel("GameOver"); //...just show the Game Over sequence.
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver"); //...just show the Game Over sequence.
     }
 
     public LevelStatus()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 // Attach this to a GUIText to make a frames/second indicator.
@@ -17,7 +18,7 @@ using System.Collections;
  // Left time for current interval
 // Interval ended - update GUI text and start new interval
  // display two fractional digits (f2 format)
-[UnityEngine.RequireComponent(typeof(GUIText))]
+[UnityEngine.RequireComponent(typeof(Text))]
 public partial class FPS : MonoBehaviour
 {
     public float updateInterval;
@@ -26,9 +27,9 @@ public partial class FPS : MonoBehaviour
     private float timeleft;
     public virtual void Start()
     {
-        if (!this.GetComponent<GUIText>())
+        if (!this.GetComponent<Text>())
         {
-            MonoBehaviour.print("FramesPerSecond needs a GUIText component!");
+            MonoBehaviour.print("FramesPerSecond needs a Text component!");
             this.enabled = false;
             return;
         }
@@ -42,7 +43,7 @@ public partial class FPS : MonoBehaviour
         ++this.frames;
         if (this.timeleft <= 0f)
         {
-            this.GetComponent<GUIText>().text = "" + (this.accum / this.frames).ToString("f2");
+            this.GetComponent<Text>().text = "" + (this.accum / this.frames).ToString("f2");
             this.timeleft = this.updateInterval;
             this.accum = 0f;
             this.frames = 0;
