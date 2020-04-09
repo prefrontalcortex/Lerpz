@@ -28,11 +28,11 @@ Respawn objects also require a simple collider, so the player can activate them.
     public AudioClip SFXRespawnActiveLoop;
     public float SFXVolume; // volume for one-shot sounds.
     // references for the various particle emitters...
-    private ParticleEmitter emitterActive;
-    private ParticleEmitter emitterInactive;
-    private ParticleEmitter emitterRespawn1;
-    private ParticleEmitter emitterRespawn2;
-    private ParticleEmitter emitterRespawn3;
+    private ParticleSystem emitterActive;
+    private ParticleSystem emitterInactive;
+    private ParticleSystem emitterRespawn1;
+    private ParticleSystem emitterRespawn2;
+    private ParticleSystem emitterRespawn3;
     // ...and for the light:
     private Light respawnLight;
     // The currently active respawn point. Static, so all instances of this script will share this variable.
@@ -42,11 +42,11 @@ Respawn objects also require a simple collider, so the player can activate them.
          // Get some of the objects we need later.
          // This is often done in a script's Start function. That way, we've got all our initialization code in one place, 
          // And can simply count on the code being fine.
-        this.emitterActive = (ParticleEmitter) this.transform.Find("RSParticlesActive").GetComponent(typeof(ParticleEmitter));
-        this.emitterInactive = (ParticleEmitter) this.transform.Find("RSParticlesInactive").GetComponent(typeof(ParticleEmitter));
-        this.emitterRespawn1 = (ParticleEmitter) this.transform.Find("RSParticlesRespawn1").GetComponent(typeof(ParticleEmitter));
-        this.emitterRespawn2 = (ParticleEmitter) this.transform.Find("RSParticlesRespawn2").GetComponent(typeof(ParticleEmitter));
-        this.emitterRespawn3 = (ParticleEmitter) this.transform.Find("RSParticlesRespawn3").GetComponent(typeof(ParticleEmitter));
+        this.emitterActive = (ParticleSystem) this.transform.Find("RSParticlesActive").GetComponent(typeof(ParticleSystem));
+        this.emitterInactive = (ParticleSystem) this.transform.Find("RSParticlesInactive").GetComponent(typeof(ParticleSystem));
+        this.emitterRespawn1 = (ParticleSystem) this.transform.Find("RSParticlesRespawn1").GetComponent(typeof(ParticleSystem));
+        this.emitterRespawn2 = (ParticleSystem) this.transform.Find("RSParticlesRespawn2").GetComponent(typeof(ParticleSystem));
+        this.emitterRespawn3 = (ParticleSystem) this.transform.Find("RSParticlesRespawn3").GetComponent(typeof(ParticleSystem));
         this.respawnLight = (Light) this.transform.Find("RSSpotlight").GetComponent(typeof(Light));
         this.RespawnState = 0;
         // set up the looping "RespawnActive" sound, but leave it switched off for now:
@@ -84,16 +84,20 @@ Respawn objects also require a simple collider, so the player can activate them.
 
     public virtual void SetActive()
     {
-        this.emitterActive.emit = true;
-        this.emitterInactive.emit = false;
+        var e1 = this.emitterActive.emission;
+        e1.enabled = true;
+        var e2 = this.emitterInactive.emission;
+        e2.enabled = false;
         this.respawnLight.intensity = 1.5f;
         this.GetComponent<AudioSource>().Play(); // start playing the sound clip assigned in the inspector
     }
 
     public virtual void SetInactive()
     {
-        this.emitterActive.emit = false;
-        this.emitterInactive.emit = true;
+        var e1 = this.emitterActive.emission;
+        e1.enabled = false;
+        var e2 = this.emitterInactive.emission;
+        e2.enabled = true;
         this.respawnLight.intensity = 1.5f;
         this.GetComponent<AudioSource>().Stop(); // stop playing the active sound clip.			
     }
@@ -101,9 +105,9 @@ Respawn objects also require a simple collider, so the player can activate them.
     public virtual IEnumerator FireEffect()
     {
          // Launch all 3 sets of particle systems.
-        this.emitterRespawn1.Emit();
-        this.emitterRespawn2.Emit();
-        this.emitterRespawn3.Emit();
+        this.emitterRespawn1.Play();
+        this.emitterRespawn2.Play();
+        this.emitterRespawn3.Play();
         this.respawnLight.intensity = 3.5f;
         if (this.SFXPlayerRespawn)
         {

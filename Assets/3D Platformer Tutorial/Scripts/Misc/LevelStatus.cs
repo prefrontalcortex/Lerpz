@@ -31,7 +31,7 @@ public partial class LevelStatus : MonoBehaviour
     public virtual IEnumerator UnlockLevelExit()
     {
         ((AudioListener) this.mainCamera.GetComponent(typeof(AudioListener))).enabled = false;
-        this.unlockedCamera.active = true;
+        this.unlockedCamera.SetActive(true);
         ((AudioListener) this.unlockedCamera.GetComponent(typeof(AudioListener))).enabled = true;
         ((AudioSource) this.exitGateway.GetComponent(typeof(AudioSource))).Stop();
         if (this.unlockedSound)
@@ -39,15 +39,15 @@ public partial class LevelStatus : MonoBehaviour
             AudioSource.PlayClipAtPoint(this.unlockedSound, ((Transform) this.unlockedCamera.GetComponent(typeof(Transform))).position, 2f);
         }
         yield return new WaitForSeconds(1);
-        this.exitGateway.active = false; // ... the fence goes down briefly...
+        this.exitGateway.SetActive(false); // ... the fence goes down briefly...
         yield return new WaitForSeconds(0.2f); //... pause for a fraction of a second...
-        this.exitGateway.active = true; //... now the fence flashes back on again...
+        this.exitGateway.SetActive(true); //... now the fence flashes back on again...
         yield return new WaitForSeconds(0.2f); //... another brief pause before...
-        this.exitGateway.active = false; //... the fence finally goes down forever!
+        this.exitGateway.SetActive(false); //... the fence finally goes down forever!
         ((MeshCollider) this.levelGoal.GetComponent(typeof(MeshCollider))).isTrigger = true;
         yield return new WaitForSeconds(4);
         // swap the cameras back. // give the player time to see the result.
-        this.unlockedCamera.active = false; // this lets the NearCamera get the screen all to itself.
+        this.unlockedCamera.SetActive(false); // this lets the NearCamera get the screen all to itself.
         ((AudioListener) this.unlockedCamera.GetComponent(typeof(AudioListener))).enabled = false;
         ((AudioListener) this.mainCamera.GetComponent(typeof(AudioListener))).enabled = true;
     }
@@ -55,7 +55,7 @@ public partial class LevelStatus : MonoBehaviour
     public virtual IEnumerator LevelCompleted()
     {
         ((AudioListener) this.mainCamera.GetComponent(typeof(AudioListener))).enabled = false;
-        this.levelCompletedCamera.active = true;
+        this.levelCompletedCamera.SetActive(true);
         ((AudioListener) this.levelCompletedCamera.GetComponent(typeof(AudioListener))).enabled = true;
         ((ThirdPersonController) this.playerLink.GetComponent(typeof(ThirdPersonController))).SendMessage("HidePlayer");
         this.playerLink.transform.position = this.playerLink.transform.position + (Vector3.up * 500f); // just move him 500 units

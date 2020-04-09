@@ -16,11 +16,12 @@ public partial class JetPackParticleController : MonoBehaviour
         ThirdPersonController playerController = (ThirdPersonController) this.GetComponent(typeof(ThirdPersonController));
         this.GetComponent<AudioSource>().loop = false;
         this.GetComponent<AudioSource>().Stop();
-        Component[] particles = this.GetComponentsInChildren(typeof(ParticleEmitter));
+        var particles = this.GetComponentsInChildren(typeof(ParticleSystem));
         Light childLight = (Light) this.GetComponentInChildren(typeof(Light));
-        foreach (ParticleEmitter p in particles)
+        foreach (ParticleSystem p in particles)
         {
-            p.emit = false;
+            var e = p.emission;
+            e.enabled = false;
         }
         childLight.enabled = false;
         while (true)
@@ -37,9 +38,10 @@ public partial class JetPackParticleController : MonoBehaviour
             {
                 this.GetComponent<AudioSource>().Stop();
             }
-            foreach (ParticleEmitter p in particles)
+            foreach (ParticleSystem p in particles)
             {
-                p.emit = isFlying;
+                var e = p.emission;
+                e.enabled = isFlying;
             }
             if (isFlying)
             {
